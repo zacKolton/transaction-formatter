@@ -1,0 +1,28 @@
+#drop-area {
+  display: flex;
+  align-items: center; /* Vertical centering */
+  justify-content: center; /* Horizontal centering */
+  border: 2px solid black;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  height: 100px; /* Adjust height as necessary */
+  margin: auto; /* Centers the drop area within its container */
+  width: 50%; /* Adjust width as necessary or as per design requirements */
+}
+
+#drop-area p {
+  margin: 0;
+}
+
+#drop-area:hover {
+  background-color: #f9f9f9;
+}
+
+#table-container {
+  display: flex;
+  align-items: center; /* Vertical centering */
+  justify-content: center; /* Horizontal centering */
+  margin: auto; /* Centers the drop area within its container */
+  padding-top: 20px;
+}
