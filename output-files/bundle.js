@@ -2,28 +2,6 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./helper-js/date-utils.js":
-/*!*********************************!*\
-  !*** ./helper-js/date-utils.js ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   formatDate: () => (/* binding */ formatDate)
-/* harmony export */ });
-function formatDate(dateStr) {
-  if (dateStr.length === 8) {
-    const year = dateStr.substring(0, 4);
-    const month = dateStr.substring(4, 6);
-    const day = dateStr.substring(6, 8);
-    return `${month}/${day}/${year}`;
-  }
-  return dateStr;
-}
-
-/***/ }),
-
 /***/ "./helper-js/fileUpload.js":
 /*!*********************************!*\
   !*** ./helper-js/fileUpload.js ***!
@@ -31,12 +9,12 @@ function formatDate(dateStr) {
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _date_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./date-utils */ "./helper-js/date-utils.js");
+/* harmony import */ var _format_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./format-utils */ "./helper-js/format-utils.js");
 
 document.getElementById('drop-area').addEventListener('dragover', function (event) {
   event.preventDefault();
   event.stopPropagation();
-  this.style.backgroundColor = '#f0f0f0'; // Optional: Visual feedback
+  this.style.backgroundColor = '#f0f0f0';
 });
 document.getElementById('drop-area').addEventListener('drop', function (event) {
   event.preventDefault();
@@ -46,7 +24,7 @@ document.getElementById('drop-area').addEventListener('drop', function (event) {
     const file = event.dataTransfer.files[0];
     processCSV(file);
   }
-  this.style.backgroundColor = ''; // Reset the background color
+  this.style.backgroundColor = '';
 });
 function processCSV(file) {
   const reader = new FileReader();
@@ -67,8 +45,9 @@ function processCSV(file) {
       } else {
         const cols = row.split(',');
         if (cols.length >= 6) {
-          const formattedDate = (0,_date_utils__WEBPACK_IMPORTED_MODULE_0__.formatDate)(cols[2].trim());
-          const html = `<tr><td>${formattedDate}</td><td>${cols[5].trim()}</td><td>${cols[4].trim()}</td></tr>`;
+          const formattedDate = (0,_format_utils__WEBPACK_IMPORTED_MODULE_0__.formatDate)(cols[2].trim());
+          const negatedAmount = (0,_format_utils__WEBPACK_IMPORTED_MODULE_0__.negateAmount)(cols[4].trim());
+          const html = `<tr><td>${formattedDate}</td><td>${cols[5].trim()}</td><td>${negatedAmount}</td></tr>`;
           table.innerHTML += html;
         }
       }
@@ -78,6 +57,37 @@ function processCSV(file) {
     console.log('Table should now be visible.'); // Debug log
   };
   reader.readAsText(file);
+}
+
+/***/ }),
+
+/***/ "./helper-js/format-utils.js":
+/*!***********************************!*\
+  !*** ./helper-js/format-utils.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   formatDate: () => (/* binding */ formatDate),
+/* harmony export */   negateAmount: () => (/* binding */ negateAmount)
+/* harmony export */ });
+function formatDate(dateStr) {
+  if (dateStr.length === 8) {
+    const year = dateStr.substring(0, 4);
+    const month = dateStr.substring(4, 6);
+    const day = dateStr.substring(6, 8);
+    return `${month}/${day}/${year}`;
+  }
+  return dateStr;
+}
+function negateAmount(amountStr) {
+  // Check if the amount already starts with a minus
+  if (amountStr.trim().startsWith('-')) {
+    return amountStr.trim().substring(1);
+  } else {
+    return '-' + amountStr.trim();
+  }
 }
 
 /***/ })
@@ -146,7 +156,7 @@ var __webpack_exports__ = {};
   \******************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _helper_js_fileUpload_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./helper-js/fileUpload.js */ "./helper-js/fileUpload.js");
-/* harmony import */ var _helper_js_date_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helper-js/date-utils.js */ "./helper-js/date-utils.js");
+/* harmony import */ var _helper_js_format_utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helper-js/format-utils.js */ "./helper-js/format-utils.js");
 // Helpers
 
 

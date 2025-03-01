@@ -1,4 +1,8 @@
-import { formatDate } from "./format-utils";
+import { 
+    formatDate,
+    negateAmount
+
+ } from "./format-utils";
 
 document.getElementById('drop-area').addEventListener('dragover', function (event) {
     event.preventDefault();
@@ -38,7 +42,8 @@ function processCSV(file) {
                 const cols = row.split(',');
                 if (cols.length >= 6) {
                     const formattedDate = formatDate(cols[2].trim());
-                    const html = `<tr><td>${formattedDate}</td><td>${cols[5].trim()}</td><td>${cols[4].trim()}</td></tr>`;
+                    const negatedAmount = negateAmount(cols[4].trim());
+                    const html = `<tr><td>${formattedDate}</td><td>${cols[5].trim()}</td><td>${negatedAmount}</td></tr>`;
                     table.innerHTML += html;
                 }
             }
