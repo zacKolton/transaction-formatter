@@ -1,4 +1,4 @@
-import { formatDate } from "./date-utils";
+import { formatDate } from "./format-utils";
 
 document.getElementById('drop-area').addEventListener('dragover', function (event) {
     event.preventDefault();

@@ -71,3 +71,6 @@ dist
 # Temporary folders
 tmp/
 temp/
+
+# Test Data
+test-data/
